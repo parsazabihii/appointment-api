@@ -1,0 +1,5 @@
+meta { name: Login type: http seq: 1 }
+post { url: {{baseUrl}}/auth/login body: json auth: none }
+body:json { {"email":"customer@example.com","password":"password123","device_name":"bruno"} }
+script:post-response { bru.setVar("token", res.body.token); }
+tests { test("200", function(){ expect(res.status).to.equal(200); }); }

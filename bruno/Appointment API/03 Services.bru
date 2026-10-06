@@ -1,0 +1,3 @@
+meta { name: Services type: http seq: 3 }
+get { url: {{baseUrl}}/services body: none auth: none }
+tests { test("200", function(){ expect(res.status).to.equal(200); }); }

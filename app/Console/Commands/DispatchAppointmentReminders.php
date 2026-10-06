@@ -1,0 +1,4 @@
+<?php
+namespace App\Console\Commands;
+use App\Enums\AppointmentStatus; use App\Jobs\SendAppointmentReminder; use App\Models\Appointment; use Illuminate\Console\Command;
+class DispatchAppointmentReminders extends Command { protected $signature='appointments:dispatch-reminders'; protected $description='Queue reminders for confirmed appointments entering the reminder window.'; public function handle(): int { $until=now()->addHours(config('booking.reminder_hours',24));$count=0;Appointment::where('status',AppointmentStatus::Confirmed->value)->whereNull('reminder_queued_at')->whereBetween('starts_at',[now(),$until])->chunkById(100,function($rows) use(&$count){foreach($rows as $a){$updated=Appointment::whereKey($a->id)->whereNull('reminder_queued_at')->update(['reminder_queued_at'=>now()]);if($updated){SendAppointmentReminder::dispatch($a->id);$count++;}}});$this->info("Queued {$count} reminders.");return self::SUCCESS;} }

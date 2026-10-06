@@ -1,0 +1,7 @@
+meta { name: Book Appointment type: http seq: 5 }
+post { url: {{baseUrl}}/appointments body: json auth: bearer }
+auth:bearer { token: {{token}} }
+headers { Idempotency-Key: bruno-booking-001 }
+body:json { {"provider_id":{{providerId}},"service_id":{{serviceId}},"starts_at":"2026-08-24T06:00:00Z"} }
+script:post-response { bru.setVar("appointmentId", res.body.data.id); bru.setVar("paymentReference", res.body.data.payment.external_reference); }
+tests { test("201", function(){ expect(res.status).to.equal(201); }); }

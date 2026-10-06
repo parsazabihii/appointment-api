@@ -1,0 +1,64 @@
+openapi: 3.1.0
+info:
+  title: Appointment Booking API
+  version: 1.0.0
+servers:
+  - url: http://127.0.0.1:8000/api
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: Sanctum
+paths:
+  /auth/register:
+    post:
+      summary: Register customer or provider
+      responses: {"201": {description: Created}}
+  /auth/login:
+    post:
+      summary: Login and issue token
+      responses: {"200": {description: OK}}
+  /services:
+    get:
+      summary: Active services
+      responses: {"200": {description: OK}}
+  /providers:
+    get:
+      summary: Active providers
+      responses: {"200": {description: OK}}
+  /providers/{provider}/slots:
+    get:
+      summary: Generate available slots
+      parameters:
+        - {name: provider, in: path, required: true, schema: {type: integer}}
+        - {name: date, in: query, required: true, schema: {type: string, format: date}}
+        - {name: service_id, in: query, required: true, schema: {type: integer}}
+      responses: {"200": {description: OK}}
+  /appointments:
+    post:
+      summary: Create pending booking hold
+      security: [{bearerAuth: []}]
+      parameters:
+        - {name: Idempotency-Key, in: header, required: false, schema: {type: string}}
+      responses: {"201": {description: Created}, "409": {description: Slot conflict}}
+    get:
+      summary: List appointments visible to current user
+      security: [{bearerAuth: []}]
+      responses: {"200": {description: OK}}
+  /appointments/{appointment}/cancel:
+    post:
+      summary: Cancel appointment
+      security: [{bearerAuth: []}]
+      responses: {"200": {description: OK}}
+  /appointments/{appointment}/reschedule:
+    post:
+      summary: Reschedule confirmed appointment
+      security: [{bearerAuth: []}]
+      responses: {"200": {description: OK}, "409": {description: Conflict}}
+  /webhooks/payments/fake:
+    post:
+      summary: Fake payment provider webhook
+      parameters:
+        - {name: X-Webhook-Secret, in: header, required: true, schema: {type: string}}
+      responses: {"200": {description: Processed}}

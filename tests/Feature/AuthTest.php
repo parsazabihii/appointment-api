@@ -1,0 +1,4 @@
+<?php
+namespace Tests\Feature;
+use Illuminate\Foundation\Testing\RefreshDatabase; use Tests\TestCase;
+class AuthTest extends TestCase { use RefreshDatabase; public function test_customer_can_register_and_receive_token(): void { $r=$this->postJson('/api/auth/register',['name'=>'Customer','email'=>'customer@test.com','password'=>'password123','password_confirmation'=>'password123','role'=>'customer']);$r->assertCreated()->assertJsonPath('data.email','customer@test.com')->assertJsonStructure(['token']);$this->assertDatabaseHas('users',['email'=>'customer@test.com','role'=>'customer']); } public function test_provider_registration_creates_provider_profile(): void { $r=$this->postJson('/api/auth/register',['name'=>'Provider','email'=>'provider@test.com','password'=>'password123','password_confirmation'=>'password123','role'=>'provider','timezone'=>'UTC']);$r->assertCreated();$this->assertDatabaseHas('providers',['user_id'=>1,'timezone'=>'UTC']); } }

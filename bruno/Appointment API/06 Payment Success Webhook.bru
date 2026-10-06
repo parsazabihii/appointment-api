@@ -1,0 +1,5 @@
+meta { name: Payment Success Webhook type: http seq: 6 }
+post { url: {{baseUrl}}/webhooks/payments/fake body: json auth: none }
+headers { X-Webhook-Secret: {{webhookSecret}} }
+body:json { {"event_id":"evt_bruno_001","type":"payment.succeeded","external_reference":"{{paymentReference}}","appointment_id":{{appointmentId}}} }
+tests { test("200", function(){ expect(res.status).to.equal(200); }); }

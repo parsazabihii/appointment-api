@@ -1,0 +1,3 @@
+meta { name: Provider Login type: http seq: 8 }
+post { url: {{baseUrl}}/auth/login body: json auth: none }
+body:json { {"email":"provider@example.com","password":"password123","device_name":"bruno-provider"} }
