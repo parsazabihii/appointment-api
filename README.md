@@ -132,7 +132,7 @@ Admin-only endpoints create/update/deactivate the global service catalog under `
 ```bash
 php artisan test
 ```
-Feature coverage includes registration/provider creation, slot blocking, pending booking/payment creation, duplicate-slot rejection, payment confirmation and webhook idempotency.
+Feature coverage includes registration/provider creation, slot blocking, pending booking/payment creation, duplicate-slot rejection, payment confirmation, webhook idempotency, preservation of paid/refunded states across later webhook events, and repeatable demo seeding without resetting existing passwords.
 
 SQLite is used by PHPUnit for portable tests; the PostgreSQL-only GIST exclusion constraint is conditionally installed only when using `pgsql`. Production concurrency protection should be verified against PostgreSQL as well.
 
