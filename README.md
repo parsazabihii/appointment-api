@@ -1,6 +1,6 @@
 # Appointment Booking API — Laravel 13
 
-Portfolio-grade REST API for appointment scheduling. The project deliberately goes beyond CRUD: dynamic slot generation, concurrency control, temporary booking holds, payment webhooks, idempotency, queues, notifications, scheduled lifecycle jobs, Redis caching/locks, and PostgreSQL overlap protection.
+Portfolio project: a REST API for appointment scheduling. The project deliberately goes beyond CRUD: dynamic slot generation, concurrency control, temporary booking holds, payment webhooks, idempotency, queues, notifications, scheduled lifecycle jobs, Redis caching/locks, and PostgreSQL overlap protection.
 
 ## Stack
 - PHP 8.3+
@@ -95,13 +95,16 @@ If you already have PostgreSQL on port 5432, start only Redis or change the comp
 ### Required PHP extension for default Redis configuration
 The example uses `REDIS_CLIENT=phpredis`. Ensure `phpredis` is installed/enabled, or install/configure Predis yourself.
 
-## Demo users (seeder)
-All demo passwords: `password123`
+## Local test accounts (seeder)
+
+After configuring your local database, run `php artisan db:seed` to create the following test accounts. This is a local development setup, not a hosted online demo.
+
+Password for newly created accounts: `password123`
 - `admin@example.com`
 - `provider@example.com`
 - `customer@example.com`
 
-Change/remove demo credentials before production.
+The seeder uses `firstOrCreate`: existing accounts keep their current passwords. Change/remove local test credentials before deployment.
 
 ## Main API flow
 1. `POST /api/auth/login`
