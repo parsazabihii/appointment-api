@@ -157,3 +157,8 @@ Some managed PostgreSQL platforms may require enabling this extension in the pro
 - HTTPS
 - rotate fake webhook secret / replace fake gateway with a real adapter
 - run migrations and PostgreSQL concurrency tests before traffic
+
+
+## PostgreSQL and Redis verification (Day 3)
+
+The existing feature suite was verified with PostgreSQL and Redis: 10 tests, 50 assertions. See [docs/DAY-03-POSTGRES-REDIS.md](docs/DAY-03-POSTGRES-REDIS.md) for setup, evidence and limits. Copy `.env.testing.example` to `.env.testing`, configure a disposable `appointment_api_test` database and isolated Redis, then run `php vendor/phpunit/phpunit/phpunit -c phpunit.postgres.xml`. The default phpunit.xml remains the portable SQLite configuration.
