@@ -7,3 +7,5 @@ Route::get('/', fn () => response()->json([
     'version' => '1.0.0',
     'docs' => '/docs/openapi.yaml',
 ]));
+
+Route::view('/demo', 'demo')->name('demo');

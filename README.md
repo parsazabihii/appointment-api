@@ -2,6 +2,14 @@
 
 Portfolio project: a REST API for appointment scheduling. The project deliberately goes beyond CRUD: dynamic slot generation, concurrency control, temporary booking holds, payment webhooks, idempotency, queues, notifications, scheduled lifecycle jobs, Redis caching/locks, and PostgreSQL overlap protection.
 
+
+
+## Interactive demo
+
+Run the Laravel app locally and open `/demo` for a responsive booking interface backed by the API. It loads active providers, services and real available slots; customers can register or sign in and create an idempotent temporary booking hold. The access token is kept only in page memory and is cleared when the page is closed or refreshed.
+
+The public demo does not complete payment or expose the fake webhook secret. Use a throwaway account for exploration. Seeded test accounts are for local development only. No hosted public demo URL is configured yet; deployment requires a separately provisioned app host, PostgreSQL database, Redis service, HTTPS, rate limits and disposable demo data.
+
 ## Stack
 - PHP 8.3+
 - Laravel 13
