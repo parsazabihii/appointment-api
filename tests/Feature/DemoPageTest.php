@@ -8,7 +8,7 @@ class DemoPageTest extends TestCase
 {
     public function test_interactive_booking_demo_is_available(): void
     {
-        $this->withoutMiddleware(\Illuminate\Session\Middleware\StartSession::class);
+        $this->app['config']->set('session.driver', 'array');
 
         $this->get('/demo')
             ->assertOk()
